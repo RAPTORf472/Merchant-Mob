@@ -1,0 +1,10 @@
+Wanderer:
+    dialogue:
+        - "&eWanna trade? I've got some goods for ya!"
+        - "&aThe monsters here are pretty strong, you should arm yourself."
+        - "&dThe &5Evil Lord &dwill be summoned at night. Run while you still can!"                
+Ranger:
+    dialogue:
+        - "&2I see dead people"
+        - "&cThe forest is filled with danger"
+        - "&4Beware of the Skeletal Rangers. The forest claimed their body and evil claimed their mind."
