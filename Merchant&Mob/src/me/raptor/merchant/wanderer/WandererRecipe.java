@@ -24,14 +24,15 @@ public class WandererRecipe extends AbstractMerchantRecipe {
 	}
 	
 	public static void setRecipe() {
-		addBasicCurrencyRecipe();
+		//basic currency
+		addBasicCurrencyRecipe(merchantRecipes);
 		//vanilla items
 		addRecipe(new ItemStack(Material.COOKED_BEEF, 5), new ItemStack(Material.EMERALD, 4), 10000, true , merchantRecipes);
 		addRecipe(new ItemStack(Material.COBBLESTONE, 64), Currency.penny(23), 10000, true , merchantRecipes);
 		addRecipe(new ItemStack(Material.STONE, 64), Currency.penny(35), 10000, true , merchantRecipes);
 		addRecipe(new ItemStack(Material.OAK_PLANKS, 64), Currency.silverCoin(1), 10000, true , merchantRecipes);
 		addRecipe(new ItemStack(Material.TORCH, 64), Currency.penny(52), 10000, true , merchantRecipes);
-		addRecipe(new ItemStack(Material.SADDLE), Currency.silverCoin(8), 10000, true , merchantRecipes);
+		addRecipe(new ItemStack(Material.SADDLE), Currency.silverCoin(2), 10000, true , merchantRecipes);
 		//custom items
 		addRecipe(HomeLocator.homeLocator(), Currency.penny(32), 10000, true , merchantRecipes);
 		addRecipe(Exterminator.exterminator(), Currency.goldCoin(2), 10000, true , merchantRecipes);

@@ -24,8 +24,10 @@ public class RangerRecipe extends AbstractMerchantRecipe {
 	}
 	
 	public static void setRecipe() {
-		addBasicCurrencyRecipe();
+		//basic currency
+		addBasicCurrencyRecipe(merchantRecipes);
 		//vanilla items
+		//this list is copy-pasted from wandererRecipe. Item should be changed later
 		addRecipe(new ItemStack(Material.COOKED_BEEF, 5), new ItemStack(Material.EMERALD, 4), 3, true , merchantRecipes);
 		addRecipe(new ItemStack(Material.COBBLESTONE, 64), Currency.penny(23), 3, true , merchantRecipes);
 		addRecipe(new ItemStack(Material.STONE, 64), Currency.penny(35), 3, true , merchantRecipes);

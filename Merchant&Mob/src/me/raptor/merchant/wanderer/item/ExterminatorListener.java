@@ -9,6 +9,7 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -21,6 +22,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+
+import me.raptor.merchant.AbstractEntityListener;
+import me.raptor.mob.allies.LightSeeker;
 
 public class ExterminatorListener implements Listener {
 	
@@ -85,6 +89,7 @@ public class ExterminatorListener implements Listener {
 			if (entity instanceof Monster) {
 				//avoid duplication
 				if (entity == e) continue;
+				if (AbstractEntityListener.checkKey(e, "Lightseeker", LightSeeker.getKey())) continue;
 				target.add((Monster) entity);
 			}
 		}
@@ -112,6 +117,7 @@ public class ExterminatorListener implements Listener {
 	    	//light to dark aqua
 	        world.spawnParticle(Particle.REDSTONE, p1.getX(), p1.getY(), p1.getZ(), 0, new DustOptions(Color.fromRGB(r.nextInt(255), 255, 255), (float) 0.75));
 	        world.spawnParticle(Particle.REDSTONE, l2, 1, 0.5, 1.0, 0.5, new DustOptions(Color.fromRGB(r.nextInt(255), 255, 255), (float) 0.75));
+	        l2.getWorld().playSound(l2, Sound.ENTITY_CREEPER_HURT, 3, 3);
 	        length += space;
 	    }
 	}

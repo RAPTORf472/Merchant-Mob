@@ -8,13 +8,14 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
-import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 import me.raptor.merchant.abstractitem.AbstractItem;
@@ -40,9 +41,13 @@ public class SwiftwindBootsListener implements Listener {
 			if (!p.isOnGround()) return;
 			ItemStack i = p.getInventory().getBoots();
 			if (AbstractItem.checkItem(i, SwiftwindBoots.boots())) {
-				parry(p, projectile);
-				//make the projectile shoot through the player, creating a dodge montage
-				e.setCancelled(true);
+				//70%
+				if (r.nextInt(101) <= 70) {
+					parry(p, projectile);
+					//make the projectile shoot through the player, creating a dodge montage
+					e.setCancelled(true);
+					reduceDurability(i);
+				}
 			}
 		}
 	}
@@ -60,6 +65,15 @@ public class SwiftwindBootsListener implements Listener {
         //dodge sound
         p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_BIG_FALL, 2, 4);
 		p.setVelocity(l.getDirection().multiply(1.5));
+	}
+	
+	public void reduceDurability(ItemStack i) {
+		ItemMeta im = i.getItemMeta();
+		if (im instanceof Damageable) {
+			if (!((Damageable) im).hasDamage()) ((Damageable) im).setDamage(1);
+			else ((Damageable) im).setDamage(((Damageable) im).getDamage() + 1);
+			i.setItemMeta(im);
+		}
 	}
 	
 }

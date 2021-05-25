@@ -7,11 +7,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.AbstractVillager;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobSpawnEvent;
 import me.raptor.merchant.AbstractEntityListener;
 import me.raptor.merchant.MerchantConversation;
 
@@ -19,24 +19,28 @@ import me.raptor.merchant.MerchantConversation;
 
 public class WandererListener extends AbstractEntityListener {
 	
+	//Called when a Wanderer is spawn
+	
 	Plugin plugin;
 	NamespacedKey key;
-	File file = new File("C:\\Users\\admin\\Desktop\\sv\\Summertime\\plugins\\LibsDisguises\\Skins\\wanderer.png");
-	//File file = new File("Root:plugins\\LibsDisguises\\Skins\\wanderer.png");
+	//skin file
+	File file;
 	
-	public WandererListener(Plugin plugin) {
+	public WandererListener(Plugin plugin, String path) {
 		this.plugin = plugin;
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 		key = new NamespacedKey(plugin, "Wanderer");
+		file = new File(path + "wanderer.png");
 		WandererRecipe.setRecipe();
 	}
 	
+	//Prefix for the Wanderer's dialogue
 	public String prefix() {
 		return MerchantConversation.colored("&1[&eWanderer&1]&6: &r");
 	}
 	
 	@EventHandler
-	public void onWandererSpawn(CreatureSpawnEvent e) {
+	public void onWandererSpawn(MythicMobSpawnEvent e) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -44,13 +48,17 @@ public class WandererListener extends AbstractEntityListener {
 					AbstractVillager v = (AbstractVillager) e.getEntity(); 
 					if (checkName(v, "Wanderer")) {
 						setKey(v, "Wanderer", key);
+						/**MythicMobs outside option makes spawn rate drops significantly. So the Ranger will
+						 * be pushed on the ground when it's spawned.
+						 * Note that the getHighestBlockAt() method may push the Ranger too high if there is 
+						 * a higher non-air block at the given location, which results in the Ranger's disappearance
+						 */
 						v.teleport(v.getWorld().getHighestBlockAt(v.getLocation()).getLocation().add(0, 2, 0));
 						MerchantConversation.activateSpeakingAbility(v, "Wanderer.dialogue", 10, 30, prefix());
 						setSkin(v, file, ChatColor.YELLOW + "Wanderer");
 					}
 				}
 			}
-			
 		}.runTaskLater(plugin, 1);
 	}
 	

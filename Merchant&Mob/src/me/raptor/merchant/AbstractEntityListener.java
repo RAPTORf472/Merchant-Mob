@@ -3,7 +3,6 @@ package me.raptor.merchant;
 import java.io.File;
 
 import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Listener;
 import org.bukkit.persistence.PersistentDataType;
@@ -26,7 +25,8 @@ public abstract class AbstractEntityListener implements Listener {
 		else return false;
 	}
 	
-	public boolean checkKey(LivingEntity l, String key, NamespacedKey nkey) {
+	//check given String in given key
+	public static boolean checkKey(LivingEntity l, String key, NamespacedKey nkey) {
 		if (l.getPersistentDataContainer().get(nkey, PersistentDataType.STRING) == null) return false;
 		if (l.getPersistentDataContainer().get(nkey, PersistentDataType.STRING).equals(key)) return true;
 		else return false;
@@ -58,7 +58,6 @@ public abstract class AbstractEntityListener implements Listener {
 				mobDisguise.setSkin(arg0);
 				mobDisguise.startDisguise();
 				l.setCustomName(customName);
-				l.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.7);
 			}
 			
 		});

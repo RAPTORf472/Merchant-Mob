@@ -19,6 +19,7 @@ public class WoodenLongbow extends AbstractItem {
 		em.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Wooden Longbow");
 		em.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		em.setLore(Arrays.asList(ChatColor.RED + "Legendary bow whose power is doubled"));
+		em.setCustomModelData(1);
 		em.setLocalizedName("longbow");
 		e.setItemMeta(em);
 		e.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1);

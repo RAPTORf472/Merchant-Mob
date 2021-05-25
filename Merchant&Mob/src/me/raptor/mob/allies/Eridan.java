@@ -5,10 +5,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
+import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobSpawnEvent;
 import me.raptor.merchant.AbstractEntityListener;
 import me.raptor.merchant.MerchantConversation;
 
@@ -28,20 +27,14 @@ public class Eridan extends AbstractEntityListener {
 	}
 	
 	@EventHandler
-	public void onEridanSpawn(CreatureSpawnEvent e) {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if (e.getEntity() instanceof Skeleton) {
-					Skeleton s = (Skeleton) e.getEntity(); 
-					if (checkName(s, "Eridan")) {
-						setKey(s, "Eridan", key);
-						disguisePlayer(s, ChatColor.GREEN + "Eridan");
-						MerchantConversation.activateSpeakingAbility(s, "Eridan.dialogue", 10, 30, prefix());
-					}
-				}
+	public void onEridanSpawn(MythicMobSpawnEvent e) {
+		if (e.getEntity() instanceof Skeleton) {
+			Skeleton s = (Skeleton) e.getEntity(); 
+			if (checkName(s, "Eridan")) {
+				setKey(s, "Eridan", key);
+				disguisePlayer(s, ChatColor.GREEN + "Eridan");
+				MerchantConversation.activateSpeakingAbility(s, "Eridan.dialogue", 10, 30, prefix());
 			}
-			
-		}.runTaskLater(plugin, 1);
+		}
 	}
 }

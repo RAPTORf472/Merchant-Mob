@@ -9,6 +9,7 @@ public class AbstractItem {
 		i.getItemMeta().setLocalizedName(name);
 	}
 	
+	//Check item by using localized name
 	public static boolean checkItem(ItemStack i, ItemStack check) {
 		if (i == null) return false;
 		if (i.getItemMeta() == null) return false;

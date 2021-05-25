@@ -5,6 +5,8 @@ import org.bukkit.ChatColor;
 
 public class ColorLogging {
 	
+	//More features should be added
+	
 	public static String formatted(String s) {
 		return ChatColor.translateAlternateColorCodes('&', s);
 	}

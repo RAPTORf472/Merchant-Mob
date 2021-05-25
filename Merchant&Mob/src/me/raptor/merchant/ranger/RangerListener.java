@@ -9,6 +9,7 @@ import org.bukkit.entity.AbstractVillager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobSpawnEvent;
 import me.raptor.merchant.AbstractEntityListener;
@@ -22,14 +23,15 @@ public class RangerListener extends AbstractEntityListener {
 	
 	Plugin plugin;
 	NamespacedKey key;
-	//link to the skin, should be changed when uploaded to server or used at your computer
-	File file = new File("C:\\Users\\admin\\Desktop\\sv\\Summertime\\plugins\\LibsDisguises\\Skins\\ranger.png");
+	//skin file
+	File file;
 
-	public RangerListener(Plugin plugin) {
+	public RangerListener(Plugin plugin, String path) {
 		this.plugin = plugin;
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 		key = new NamespacedKey(plugin, "Ranger");
 		RangerRecipe.setRecipe();
+		file = new File(path + "Ranger.png");
 	}
 	
 	//Prefix for the Ranger's dialogue
@@ -39,21 +41,26 @@ public class RangerListener extends AbstractEntityListener {
 	
 	@EventHandler
 	public void onRangerSpawn(MythicMobSpawnEvent e) {
-		if (e.getEntity() instanceof AbstractVillager) {
-			AbstractVillager v = (AbstractVillager) e.getEntity(); 
-			/**MythicMobs outside option makes spawn rate drops significantly. So the Ranger will
-			 * be pushed on the ground when it's spawned.
-			 * Note that the getHighestBlockAt() method may push the Ranger too high if there is 
-			 * a higher non-air block at the given location, which results in the Ranger's disappearance
-			 */
-			
-			if (checkName(v, "Ranger")) {
-				setKey(v, "Ranger", key);
-				v.teleport(v.getWorld().getHighestBlockAt(v.getLocation()).getLocation().add(0, 2, 0));
-				MerchantConversation.activateSpeakingAbility(v, "Ranger.dialogue", 10, 30, prefix());
-				setSkin(v, file, ChatColor.DARK_GREEN + "Ranger");
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if (e.getEntity() instanceof AbstractVillager) {
+					AbstractVillager v = (AbstractVillager) e.getEntity(); 
+					/**MythicMobs outside option makes spawn rate drops significantly. So the Ranger will
+					 * be pushed on the ground when it's spawned.
+					 * Note that the getHighestBlockAt() method may push the Ranger too high if there is 
+					 * a higher non-air block at the given location, which results in the Ranger's disappearance
+					 */
+					
+					if (checkName(v, "Ranger")) {
+						setKey(v, "Ranger", key);
+						v.teleport(v.getWorld().getHighestBlockAt(v.getLocation()).getLocation().add(0, 2, 0));
+						MerchantConversation.activateSpeakingAbility(v, "Ranger.dialogue", 10, 30, prefix());
+						setSkin(v, file, ChatColor.DARK_GREEN + "Ranger");
+					}
+				}
 			}
-		}
+		}.runTaskLater(plugin, 1);
 	}
 	
 	//Open the trade menu when the player right click the Ranger

@@ -41,14 +41,14 @@ public abstract class AbstractMerchantRecipe {
 		p.openMerchant(merchant, true);
 	}
 	
-	public static void addBasicCurrencyRecipe() {
-		addRecipe(Currency.penny(1), new ItemStack(Material.POISONOUS_POTATO, 1), 10000, true , merchantRecipes);
-		addRecipe(Currency.penny(10), new ItemStack(Material.EMERALD, 1), 10000, true , merchantRecipes);
-		addRecipe(Currency.silverCoin(1), Currency.penny(10), 10000, true , merchantRecipes);
-		addRecipe(Currency.silverCoin(7), Currency.penny(64), 10000, true , merchantRecipes);
-		addRecipe(Currency.silverCoin(15), Currency.penny(64), Currency.penny(64), 10000, true , merchantRecipes);
-		addRecipe(Currency.goldCoin(1), Currency.silverCoin(10), 10000, true , merchantRecipes);
-		addRecipe(Currency.goldCoin(7), Currency.silverCoin(64), 10000, true , merchantRecipes);
-		addRecipe(Currency.credit(1), Currency.goldCoin(20), 10000, true , merchantRecipes);
+	public static void addBasicCurrencyRecipe(List<MerchantRecipe> list) {
+		addRecipe(Currency.penny(1), new ItemStack(Material.POISONOUS_POTATO, 1), 10000, true , list);
+		addRecipe(Currency.penny(10), new ItemStack(Material.EMERALD, 1), 10000, true , list);
+		addRecipe(Currency.silverCoin(1), Currency.penny(10), 10000, true , list);
+		addRecipe(Currency.silverCoin(7), Currency.penny(64), 10000, true , list);
+		addRecipe(Currency.silverCoin(15), Currency.penny(64), Currency.penny(64), 10000, true , list);
+		addRecipe(Currency.goldCoin(1), Currency.silverCoin(10), 10000, true , list);
+		addRecipe(Currency.goldCoin(7), Currency.silverCoin(64), 10000, true , list);
+		addRecipe(Currency.credit(1), Currency.goldCoin(20), 10000, true , list);
 	}
 }

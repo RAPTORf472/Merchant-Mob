@@ -15,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.raptor.merchant.MerchantConversation;
 import me.raptor.merchant.currency.Currency;
+import me.raptor.merchant.currency.CurrencyListener;
 import me.raptor.merchant.ranger.RangerListener;
 import me.raptor.merchant.ranger.item.SwiftwindBootsListener;
 import me.raptor.merchant.ranger.item.WoodenLongbowListener;
@@ -22,25 +23,36 @@ import me.raptor.merchant.wanderer.WandererListener;
 import me.raptor.merchant.wanderer.item.ExterminatorListener;
 import me.raptor.merchant.wanderer.item.HomeLocatorListener;
 import me.raptor.mob.allies.Eridan;
+import me.raptor.mob.allies.LightSeeker;
+import me.raptor.mob.hostile.Abomination;
+import me.raptor.mob.hostile.Werewolf;
 
 public class Main extends JavaPlugin {
 
 	private File customConfigFile;
     private FileConfiguration customConfig;
+    //Path to skin folder
+    String skinpath = "C:\\Users\\admin\\Desktop\\sv\\Summertime\\plugins\\LibsDisguises\\Skins\\";
 	
 	@Override
 	public void onEnable() {
+		//register events and give skin folder directory to mobs
 		ColorLogging.Logging("&4&lMerchant Plugin has been enabled");
 		createCustomConfig();
 		new Currency(this);
+		new CurrencyListener(this);
 		new HomeLocatorListener(this);
 		new ExterminatorListener(this);
-		new WandererListener(this);
 		new MerchantConversation(this);
-		new RangerListener(this);
 		new WoodenLongbowListener(this);
 		new SwiftwindBootsListener(this);
+		new RangerListener(this, skinpath);
+		new WandererListener(this, skinpath);
 		new Eridan(this);
+		new LightSeeker(this, skinpath);
+		new Werewolf(this, skinpath);
+		new Abomination(this, skinpath);
+		
 	}
 	
 	@Override
@@ -82,6 +94,7 @@ public class Main extends JavaPlugin {
         }
     }
 	
+    
 	@Override
 	public boolean onCommand(CommandSender sd, Command cmd, String commandLabel, String[] args) {
 		if (!(sd instanceof Player)) {

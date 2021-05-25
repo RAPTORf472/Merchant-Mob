@@ -17,8 +17,8 @@ import me.raptor.merchant.abstractitem.AbstractItem;
 
 public class SwiftwindBoots extends AbstractItem {
 	public static ItemStack boots() {	
+		//1.5 armor point
 		AttributeModifier armorValue = new AttributeModifier(UUID.randomUUID(), "armorValue", 1.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-		AttributeModifier durability = new AttributeModifier(UUID.randomUUID(), "armorValue", 481 - 65, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
 		ItemStack e =  new ItemStack(Material.LEATHER_BOOTS);
 		LeatherArmorMeta em = (LeatherArmorMeta) e.getItemMeta();
 		em.setColor(Color.fromRGB(119, 179, 0));
@@ -27,9 +27,9 @@ public class SwiftwindBoots extends AbstractItem {
 		em.setLore(Arrays.asList(ChatColor.GREEN + "A lifetime training of parrying in this pair of boots"));
 		em.setLocalizedName("swiftwindboots");
 		em.addAttributeModifier(Attribute.GENERIC_ARMOR, armorValue);
-		em.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, durability);
 		e.setItemMeta(em);
 		e.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 6);
+		e.addUnsafeEnchantment(Enchantment.DURABILITY, 38);
 		return e;
 	}
 }
