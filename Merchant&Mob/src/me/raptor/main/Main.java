@@ -25,6 +25,8 @@ import me.raptor.merchant.wanderer.item.HomeLocatorListener;
 import me.raptor.mob.allies.Eridan;
 import me.raptor.mob.allies.LightSeeker;
 import me.raptor.mob.hostile.Abomination;
+import me.raptor.mob.hostile.DarkKnight;
+import me.raptor.mob.hostile.EvilLord;
 import me.raptor.mob.hostile.Werewolf;
 
 public class Main extends JavaPlugin {
@@ -46,12 +48,15 @@ public class Main extends JavaPlugin {
 		new MerchantConversation(this);
 		new WoodenLongbowListener(this);
 		new SwiftwindBootsListener(this);
+		new Eridan(this);
 		new RangerListener(this, skinpath);
 		new WandererListener(this, skinpath);
-		new Eridan(this);
 		new LightSeeker(this, skinpath);
 		new Werewolf(this, skinpath);
 		new Abomination(this, skinpath);
+		new DarkKnight(this, skinpath);
+		new EvilLord(this, skinpath);
+			
 		
 	}
 	
