@@ -43,9 +43,9 @@ public class Main extends JavaPlugin {
 	private File customDialogueFile, customNameFile;
     private FileConfiguration customDialogueConfig, customNameConfig;
     //Path to skin folder(server)
-//    String skinpath = "/home/container/plugins/LibsDisguises/Skins/";
+    String skinpath = "/home/container/plugins/LibsDisguises/Skins/";
     //Path to skin folder(local)
-    String skinpath = "C:\\Users\\admin\\Desktop\\sv\\Summertime\\plugins\\LibsDisguises\\Skins\\";
+//    String skinpath = "C:\\Users\\admin\\Desktop\\sv\\Summertime\\plugins\\LibsDisguises\\Skins\\";
 	
 	@Override
 	public void onEnable() {
