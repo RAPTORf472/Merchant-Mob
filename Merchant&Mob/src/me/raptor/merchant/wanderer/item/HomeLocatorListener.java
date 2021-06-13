@@ -22,6 +22,7 @@ public class HomeLocatorListener implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
+	//Save the player's location in the compass. Suitable for cave marking and such.
 	@EventHandler
 	public void playerInteractEvent(PlayerInteractEvent e) {
 		//similar to set home function

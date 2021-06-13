@@ -48,13 +48,13 @@ public class WandererListener extends AbstractEntityListener {
 					AbstractVillager v = (AbstractVillager) e.getEntity(); 
 					if (checkName(v, "Wanderer")) {
 						setKey(v, "Wanderer", key);
-						/**MythicMobs outside option makes spawn rate drops significantly. So the Ranger will
+						/**MythicMobs outside option makes spawn rate drops significantly. So the Wanderer will
 						 * be pushed on the ground when it's spawned.
 						 * Note that the getHighestBlockAt() method may push the Ranger too high if there is 
 						 * a higher non-air block at the given location, which results in the Ranger's disappearance
 						 */
 						v.teleport(v.getWorld().getHighestBlockAt(v.getLocation()).getLocation().add(0, 2, 0));
-						MerchantConversation.activateSpeakingAbility(v, "Wanderer.dialogue", 10, 30, prefix());
+						MerchantConversation.activateSpeakingAbility(v, "Wanderer", 10, 30, prefix());
 						setSkin(v, file, ChatColor.YELLOW + "Wanderer");
 					}
 				}
@@ -62,6 +62,7 @@ public class WandererListener extends AbstractEntityListener {
 		}.runTaskLater(plugin, 1);
 	}
 	
+	//open trade gui when the player right click
 	@EventHandler
 	public void onWandererClick(PlayerInteractAtEntityEvent e) {
 		if (!(e.getRightClicked() instanceof AbstractVillager)) return;

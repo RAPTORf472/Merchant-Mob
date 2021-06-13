@@ -7,7 +7,6 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -63,10 +62,11 @@ public class SwiftwindBootsListener implements Listener {
 		l.setYaw(l.getYaw() + (1 - (r.nextInt(2) * 2 )) * 90);
         p.spawnParticle(Particle.REDSTONE, p.getLocation().add(0, 1, 0), 20, 0.5, 1.0, 0.5, new DustOptions(Color.WHITE, (float) 0.75));
         //dodge sound
-        p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_BIG_FALL, 2, 4);
+        p.playSound(p.getLocation(), "dodge", 2, 4);
 		p.setVelocity(l.getDirection().multiply(1.5));
 	}
 	
+	//reduce the durability by one when the player parry
 	public void reduceDurability(ItemStack i) {
 		ItemMeta im = i.getItemMeta();
 		if (im instanceof Damageable) {

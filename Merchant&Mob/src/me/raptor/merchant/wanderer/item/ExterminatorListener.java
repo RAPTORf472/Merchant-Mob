@@ -36,6 +36,7 @@ public class ExterminatorListener implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
+	//player attack
 	@EventHandler
 	public void onPlayerAttack(EntityDamageByEntityEvent e) {
 		if (e.getDamager() instanceof Player && e.getEntity() instanceof LivingEntity) {
@@ -49,7 +50,7 @@ public class ExterminatorListener implements Listener {
 		}
 	}
 	
-	
+	//zap a mob and switch to the next target. (Number of times specified in the parameters) 
 	public void zap(LivingEntity l, int count, double damage, double percent, int interval) {
 		new BukkitRunnable() {
 			double damage1 = damage * percent / 100;
@@ -80,6 +81,7 @@ public class ExterminatorListener implements Listener {
 		}.runTaskTimer(plugin, 0, interval);
 	}
 	
+	//Choose a random target within the given radius
 	public Monster chooseTarget(LivingEntity e, int radius) {
 		//choose a target from a given range
 		if (e == null) return null;
@@ -99,6 +101,7 @@ public class ExterminatorListener implements Listener {
  		}
 	}
 	
+	//Draw a line of particle between 2 entities
 	public void zapEffect(LivingEntity e1, LivingEntity e2, double space) {
 		if (e1 == null || e2 == null) return;
 		//Algorithm for drawing a line of particle between 2 points
@@ -113,10 +116,10 @@ public class ExterminatorListener implements Listener {
 	    double length = 0;
 	    //For the light effect when an entity is zap. Doesn't work for entity with fire resistance
 	    e2.setFireTicks(5);
-	    for (; length < distance; p1.add(vector)) {
+        world.spawnParticle(Particle.REDSTONE, l2, 1, 0.5, 1.0, 0.5, new DustOptions(Color.fromRGB(r.nextInt(255), 255, 255), (float) 0.75));
+        for (; length < distance; p1.add(vector)) {
 	    	//light to dark aqua
 	        world.spawnParticle(Particle.REDSTONE, p1.getX(), p1.getY(), p1.getZ(), 0, new DustOptions(Color.fromRGB(r.nextInt(255), 255, 255), (float) 0.75));
-	        world.spawnParticle(Particle.REDSTONE, l2, 1, 0.5, 1.0, 0.5, new DustOptions(Color.fromRGB(r.nextInt(255), 255, 255), (float) 0.75));
 	        l2.getWorld().playSound(l2, Sound.ENTITY_CREEPER_HURT, 3, 3);
 	        length += space;
 	    }

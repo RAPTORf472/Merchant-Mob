@@ -3,7 +3,6 @@ package me.raptor.merchant.currency;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -18,15 +17,6 @@ public class CurrencyListener implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
-	//penny place event
-	@EventHandler
-	public void onCurrencyUsedWrongly(BlockPlaceEvent e) {
-		ItemStack i = e.getItemInHand();
-		if (Currency.checkCurrencyName(i, "penny")) {
-			e.setCancelled(true);
-		}
-	}
-	
 	//crafting recipe using currency
 	@EventHandler
 	public void onCurrencyUsedWrongly(CraftItemEvent e) {
@@ -38,6 +28,7 @@ public class CurrencyListener implements Listener {
 		}
 	}
 	
+	//using currency on entities
 	@EventHandler
 	public void onCurrencyUsedWrongly(PlayerInteractEntityEvent e) {
 		ItemStack right = e.getPlayer().getInventory().getItemInMainHand();

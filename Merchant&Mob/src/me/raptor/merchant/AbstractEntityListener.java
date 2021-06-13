@@ -1,9 +1,13 @@
 package me.raptor.merchant;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.Listener;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -18,6 +22,15 @@ import me.libraryaddict.disguise.utilities.SkinUtils.SkinCallback;
 import me.libraryaddict.disguise.utilities.translations.LibsMsg;
 
 public abstract class AbstractEntityListener implements Listener {
+	
+	private static List<String> plainMobName = Arrays.asList(ChatColor.DARK_RED + "Abomination",
+															 ChatColor.LIGHT_PURPLE + "Dark Knight",
+															 ChatColor.DARK_BLUE + "Werewolf",
+															 ChatColor.RED + "" + ChatColor.BOLD + "Evil Lord");
+	
+	public static List<String> getPlainMobName() {
+		return plainMobName;
+	}
 	
 	public boolean checkName(LivingEntity l, String name) {
 		if (l.getCustomName() == null) return false;
@@ -35,6 +48,13 @@ public abstract class AbstractEntityListener implements Listener {
 	public void setKey(LivingEntity l, String key, NamespacedKey nkey) {
 		l.getPersistentDataContainer().set(nkey, PersistentDataType.STRING, key);
 	}
+	
+	public boolean checkProjectile(Projectile p, String name) {
+		if (p.getCustomName() == null) return false;
+		if (p.getCustomName().equals(name)) return true;
+		else return false;
+	}
+
 	
 	public void setSkin(LivingEntity l, File file, String customName) { //set skin using LibDisguiseAPI
 		PlayerDisguise mobDisguise = new PlayerDisguise(customName);
