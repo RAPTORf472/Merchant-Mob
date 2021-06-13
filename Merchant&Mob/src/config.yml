@@ -1,1 +1,4 @@
-#Dummy text
+RAPTOR:
+  enableMerchantChat: false
+SthWentWrong:
+  enableMerchantChat: true
