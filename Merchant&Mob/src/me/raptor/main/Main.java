@@ -43,14 +43,14 @@ public class Main extends JavaPlugin {
 	private File customDialogueFile, customNameFile;
     private FileConfiguration customDialogueConfig, customNameConfig;
     //Path to skin folder(server)
-    String skinpath = "/home/container/plugins/LibsDisguises/Skins/";
+//    String skinpath = "/home/container/plugins/LibsDisguises/Skins/";
     //Path to skin folder(local)
-    //String skinpath = "C:\\Desktop\\sv\\Summertime\\plugins\\LibsDisguises\\Skins\\";
+    String skinpath = "C:\\Users\\admin\\Desktop\\sv\\Summertime\\plugins\\LibsDisguises\\Skins\\";
 	
 	@Override
 	public void onEnable() {
 		//register events and give skin folder directory to mobs
-		ColorLogging.Logging("&4&lMerchant Plugin has been enabled");
+		ColorLogging.onEnableLog();
 		createDialogueFile();
 		createNameFile();
 		//give plugin instance to classes
@@ -76,12 +76,12 @@ public class Main extends JavaPlugin {
 		new DarkKnight(this, skinpath);
 		new EvilLord(this, skinpath);
 		new ParticleUtils(this);
-		
+		getCommand("merchant").setTabCompleter(new CustomTabCompleter());
 	}
 	
 	@Override
 	public void onDisable() {
-		
+		ColorLogging.onDisableLog();
 	}
 	
 	public static Main getPlugin() {
@@ -181,12 +181,31 @@ public class Main extends JavaPlugin {
 	@Override
 	public boolean onCommand(CommandSender sd, Command cmd, String commandLabel, String[] args) {
 		if (!(sd instanceof Player)) {
-			sd.sendMessage("no");
+		if (args[0].equalsIgnoreCase("reload")) {
+			//reload name config
+			if (args[1].equalsIgnoreCase("name")) {
+				reloadNameConfig();
+				sd.sendMessage(ChatColor.GREEN + "Name Config reloaded");
+			//reload dialogue config
+			} else if (args[1].equalsIgnoreCase("dialogue")) {
+				reloadDialogueConfig();
+				sd.sendMessage(ChatColor.GREEN + "Dialogue Config reloaded");
+			} else {
+				sd.sendMessage(ColorLogging.getHelpMessage());
+			}
+		} else if (args[0].equalsIgnoreCase("adminPrecaution")) {
+			sd.sendMessage(ColorLogging.getAdminPrecaution());
+		} else {
+			sd.sendMessage(ColorLogging.getHelpMessage());
+		}
 			return true;
 		}
 		Player p = (Player) sd;
 		if (cmd.getName().equalsIgnoreCase("merchant")) {
-			if (args.length == 0) return true;
+			if (args.length == 0) {
+				p.sendMessage(ColorLogging.getHelpMessage());
+				return true;
+			}
 			if (args.length >= 1) {
 				if (args[0].equalsIgnoreCase("chat")) {
 					//Enable mob chatting
@@ -199,10 +218,10 @@ public class Main extends JavaPlugin {
 						getConfig().set(p.getName() + ".enableMerchantChat", false);
 						saveConfig();
 						p.sendMessage(ChatColor.GREEN + "You can no longer listen to the merchants");
+					} else {
+						p.sendMessage(ColorLogging.getHelpMessage());
 					}
-					 return true;
-				}
-				if (args[0].equalsIgnoreCase("reload")) {
+				} else if (args[0].equalsIgnoreCase("reload")) {
 					//reload name config
 					if (args[1].equalsIgnoreCase("name")) {
 						reloadNameConfig();
@@ -211,8 +230,13 @@ public class Main extends JavaPlugin {
 					} else if (args[1].equalsIgnoreCase("dialogue")) {
 						reloadDialogueConfig();
 						p.sendMessage(ChatColor.GREEN + "Dialogue Config reloaded");
+					} else {
+						p.sendMessage(ColorLogging.getHelpMessage());
 					}
-					 return true;
+				} else if (args[0].equalsIgnoreCase("adminPrecaution")) {
+					p.sendMessage(ColorLogging.getAdminPrecaution());
+				} else {
+					p.sendMessage(ColorLogging.getHelpMessage());
 				}
 			}
 		}
