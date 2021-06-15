@@ -19,6 +19,17 @@ import org.bukkit.scheduler.BukkitRunnable;
 import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobSpawnEvent;
 import me.raptor.merchant.ranger.RangerRecipe;
 
+
+//Các class hữu ích:
+//MerchantConversation: Khiến Mob nói chuyện
+//ParticleUtils: Tạo particle cho Mob, skill... (Khuyến khích thêm particle mới)
+//AbstractEntityListener: Chứa các hàm giúp nhận diện mob, projectile, set Skin...
+//Currency: Tạo ra những đồng tiền, có thể dùng để trade với merchant trader
+//AbstractMerchantRecipe: Các phương thức hữu ích để tạo trade cho trader
+//ColorLogging: "Làm màu" cho những dòng chat
+
+
+//Mọi class mob đều nên extend AbstractEntityListener
 public class ExampleMob extends AbstractEntityListener {
 	
 	//Cách để tạo ra 1 con Mob
