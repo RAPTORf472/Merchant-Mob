@@ -14,6 +14,7 @@ import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
@@ -60,10 +61,11 @@ public class DarkKnight extends AbstractEntityListener {
 						setKey(z, "Darkknight", key);
 						z.teleport(z.getWorld().getHighestBlockAt(z.getLocation()).getLocation().add(0, 2, 0));
 						z.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(12);
-						z.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.3);
-						setSkin(z, file, ChatColor.LIGHT_PURPLE + "Dark Knight");
+						z.setCustomName(ChatColor.LIGHT_PURPLE + "Dark Knight");
+						z.setCustomNameVisible(true);
 						deathAura(z, 1, 3, 1);
 						DarkKnightEquipments(z);
+						setSkin(z, file, ChatColor.LIGHT_PURPLE + "Dark Knight");
 					}
 				}
 			}
@@ -136,6 +138,7 @@ public class DarkKnight extends AbstractEntityListener {
 	
 	//Valuable drops. They are hard to kill
 	public static void spawnDrops(Location l) {
+		l.getWorld().spawn(l, ExperienceOrb.class).setExperience(400);
 		l.getWorld().dropItemNaturally(l, Currency.goldCoin(3));
 		l.getWorld().dropItemNaturally(l, new ItemStack(Material.GOLD_INGOT, 12));
 		l.getWorld().dropItemNaturally(l, new ItemStack(Material.GOLDEN_APPLE, 2));

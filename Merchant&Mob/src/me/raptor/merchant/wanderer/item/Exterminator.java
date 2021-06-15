@@ -14,7 +14,7 @@ import me.raptor.merchant.abstractitem.AbstractItem;
 public class Exterminator extends AbstractItem {
 	
 	public static ItemStack exterminator() {	
-		ItemStack e =  new ItemStack(Material.STONE_SWORD);
+		ItemStack e =  new ItemStack(Material.IRON_SWORD);
 		ItemMeta em = e.getItemMeta();
 		em.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "Exterminator");
 		em.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

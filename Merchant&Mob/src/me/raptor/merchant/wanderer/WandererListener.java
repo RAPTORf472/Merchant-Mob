@@ -54,6 +54,8 @@ public class WandererListener extends AbstractEntityListener {
 						 * a higher non-air block at the given location, which results in the Ranger's disappearance
 						 */
 						v.teleport(v.getWorld().getHighestBlockAt(v.getLocation()).getLocation().add(0, 2, 0));
+						v.setCustomName(ChatColor.DARK_GREEN + "Ranger");
+						v.setCustomNameVisible(true);
 						MerchantConversation.activateSpeakingAbility(v, "Wanderer", 10, 30, prefix());
 						setSkin(v, file, ChatColor.YELLOW + "Wanderer");
 					}

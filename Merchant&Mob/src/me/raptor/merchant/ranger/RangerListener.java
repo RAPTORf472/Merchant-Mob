@@ -56,6 +56,8 @@ public class RangerListener extends AbstractEntityListener {
 						setKey(v, "Ranger", key);
 						v.teleport(v.getWorld().getHighestBlockAt(v.getLocation()).getLocation().add(0, 2, 0));
 						MerchantConversation.activateSpeakingAbility(v, "Ranger", 10, 30, prefix());
+						v.setCustomName(ChatColor.DARK_GREEN + "Ranger");
+						v.setCustomNameVisible(true);
 						setSkin(v, file, ChatColor.DARK_GREEN + "Ranger");
 					}
 				}

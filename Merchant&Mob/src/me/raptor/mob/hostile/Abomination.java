@@ -13,6 +13,7 @@ import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
@@ -51,6 +52,8 @@ public class Abomination extends AbstractEntityListener {
 						setKey(z, "Abomination", key);
 						z.teleport(z.getWorld().getHighestBlockAt(z.getLocation()).getLocation().add(0, 2, 0));
 						z.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(5);
+						z.setCustomName(ChatColor.DARK_RED + "Abomination");
+						z.setCustomNameVisible(true);
 						setSkin(z, file, ChatColor.DARK_RED + "Abomination");
 						
 					}
@@ -119,6 +122,7 @@ public class Abomination extends AbstractEntityListener {
 	}
 	
 	public static void spawnDrops(Location l) {
+		l.getWorld().spawn(l, ExperienceOrb.class).setExperience(150);
 		l.getWorld().dropItemNaturally(l, new ItemStack(Material.GOLD_INGOT, 8));
 		l.getWorld().dropItemNaturally(l, new ItemStack(Material.IRON_INGOT, 8));
 		l.getWorld().playSound(l, Sound.ENTITY_ARROW_HIT_PLAYER, 13, 3);

@@ -41,6 +41,7 @@ public class MerchantConversation {
 					cancel();
 					return;
 				}
+				if (v.isSleeping()) return;
 				try {
 				speakDialogue(v, range, prefix, path);
 				} catch (IndexOutOfBoundsException e) {
@@ -61,7 +62,7 @@ public class MerchantConversation {
 					cancel();
 					return;
 				}
-				v.getWorld().playSound(v.getLocation(), getData(path + ".sounds", randomIndex(path + ".sounds")), 7, 1);
+				v.getWorld().playSound(v.getLocation(), getData(path + ".sounds", randomIndex(path + ".sounds")), 3, 1);
 			}
 		}.runTaskTimer(main, 0, 20 * interval);
 	}

@@ -11,7 +11,7 @@ public class AbstractItem {
 	
 	//Check item by using localized name
 	public static boolean checkItem(ItemStack i, ItemStack check) {
-		if (i == null) return false;
+		if (i == null || check == null) return false;
 		if (i.getItemMeta() == null) return false;
 		if (i.getItemMeta().hasLocalizedName() && check.getItemMeta().hasLocalizedName()) {
 			String s1 = i.getItemMeta().getLocalizedName();

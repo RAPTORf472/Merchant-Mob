@@ -25,6 +25,9 @@ public class CustomTabCompleter implements TabCompleter {
 					if (args[0].equalsIgnoreCase("reload")) {
 						 return getCmdArg2Reload();
 					}
+					if (args[0].equalsIgnoreCase("wiki")) {
+						 return getCmdArg2Wiki();
+					}
 				}
 				if (args.length > 2) return null;
 			} else {
@@ -46,6 +49,7 @@ public class CustomTabCompleter implements TabCompleter {
 		cmdArg1.add("chat");
 		cmdArg1.add("help");
 		cmdArg1.add("adminPrecaution");
+		cmdArg1.add("wiki");
 		Collections.sort(cmdArg1);
 		return cmdArg1;
 	}
@@ -71,6 +75,21 @@ public class CustomTabCompleter implements TabCompleter {
 		List<String> cmdArg2 = new ArrayList<>();
 		cmdArg2.add("on");
 		cmdArg2.add("off");
+		Collections.sort(cmdArg2);
+		return cmdArg2;
+	}
+	
+	public List<String> getCmdArg2Wiki() {
+		List<String> cmdArg2 = new ArrayList<>();
+		cmdArg2.add("swiftwindboots");
+		cmdArg2.add("exterminator");
+		cmdArg2.add("locator");
+		cmdArg2.add("longbow");
+		cmdArg2.add("lightseeker");
+		cmdArg2.add("werewolf");
+		cmdArg2.add("abomination");
+		cmdArg2.add("darkknight");
+		cmdArg2.add("evillord");
 		Collections.sort(cmdArg2);
 		return cmdArg2;
 	}

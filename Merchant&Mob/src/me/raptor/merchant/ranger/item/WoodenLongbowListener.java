@@ -101,7 +101,7 @@ public class WoodenLongbowListener implements Listener {
 			e.setDamage(e.getDamage() * 3);
 			return;
 		}
-		l.setHealth(0);
+		l.damage(1000);
 		//dark red
 		l.getWorld().spawnParticle(Particle.REDSTONE, l.getLocation().add(0, 1, 0) , 50, 1, 2, 1, new DustOptions(Color.fromRGB(153, 0, 0), 1));
 	}

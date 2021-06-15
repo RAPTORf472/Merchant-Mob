@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Spider;
 import org.bukkit.event.EventHandler;
@@ -48,10 +49,11 @@ public class Werewolf extends AbstractEntityListener {
 					if (checkName(z, "Werewolf")) {
 						setKey(z, "Werewolf", key);
 						z.teleport(z.getWorld().getHighestBlockAt(z.getLocation()).getLocation().add(0, 2, 0));
-						z.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.5);
 						z.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(15);
-						setSkin(z, file, ChatColor.DARK_BLUE + "Werewolf");
+						z.setCustomName(ChatColor.DARK_BLUE + "Werewolf");
+						z.setCustomNameVisible(true);
 						MerchantConversation.activateSoundAbility(z, "Werewolf", 10);
+						setSkin(z, file, ChatColor.DARK_BLUE + "Werewolf");
 					}
 				}
 			}
@@ -65,7 +67,7 @@ public class Werewolf extends AbstractEntityListener {
 			Spider s = (Spider) e.getDamager();
 			LivingEntity le = (LivingEntity) e.getEntity();
 			if (checkKey(s, "Werewolf", key)) {
-				s.getWorld().playSound(s.getLocation(), MerchantConversation.getData("Werewolf.attack", 0), 5, 1);
+				s.getWorld().playSound(s.getLocation(), MerchantConversation.getData("Werewolf.attack", 0), 3, 1);
 				if (e.getDamage() > le.getHealth()) spawnNewWerewolf(le.getLocation(), s);
 			}
 		}
@@ -77,7 +79,7 @@ public class Werewolf extends AbstractEntityListener {
 		if (e.getEntity() instanceof Spider) {
 			Spider s = (Spider) e.getEntity();
 			if (checkKey(s, "Werewolf", key)) {
-				s.getWorld().playSound(s.getLocation(), Sound.ENTITY_WOLF_HURT, 5, 1);
+				s.getWorld().playSound(s.getLocation(), Sound.ENTITY_WOLF_HURT, 3, 1);
 			}
 		}
 	}
@@ -106,6 +108,7 @@ public class Werewolf extends AbstractEntityListener {
 	
 	//Drops.
 	public static void spawnDrops(Location l) {
+		l.getWorld().spawn(l, ExperienceOrb.class).setExperience(100);
 		l.getWorld().dropItemNaturally(l, Currency.silverCoin(7));
 		l.getWorld().dropItemNaturally(l, new ItemStack(Material.IRON_INGOT, 8));
 		l.getWorld().playSound(l, Sound.ENTITY_ARROW_HIT_PLAYER, 13, 3);

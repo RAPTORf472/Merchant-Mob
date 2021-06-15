@@ -4,6 +4,7 @@ version: 0.1
 author: RAPTOR
 description: No Desc
 api-version: 1.16
+depend: [LibsDisguises, MythicMobs, ProtocolLib]
 
 commands:
   merchant:

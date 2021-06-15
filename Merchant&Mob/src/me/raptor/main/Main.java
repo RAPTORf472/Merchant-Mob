@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.raptor.merchant.MerchantConversation;
+import me.raptor.merchant.MerchantDescription;
 import me.raptor.merchant.currency.Currency;
 import me.raptor.merchant.currency.CurrencyListener;
 import me.raptor.merchant.ranger.RangerListener;
@@ -43,7 +44,7 @@ public class Main extends JavaPlugin {
 	private File customDialogueFile, customNameFile;
     private FileConfiguration customDialogueConfig, customNameConfig;
     //Path to skin folder(server)
-    String skinpath = "/home/container/plugins/LibsDisguises/Skins/";
+    String skinpath = getDataFolder() + "/Skins/";
     //Path to skin folder(local)
 //    String skinpath = "C:\\Users\\admin\\Desktop\\sv\\Summertime\\plugins\\LibsDisguises\\Skins\\";
 	
@@ -53,6 +54,7 @@ public class Main extends JavaPlugin {
 		ColorLogging.onEnableLog();
 		createDialogueFile();
 		createNameFile();
+		createSkinFolder();
 		//give plugin instance to classes
 		new Currency(this);
 		new CurrencyListener(this);
@@ -134,6 +136,13 @@ public class Main extends JavaPlugin {
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
+    }
+    
+    private void createSkinFolder() {
+    	File skinfolder = new File(getDataFolder(), "Skins");
+        if (!skinfolder.exists()) {
+        	skinfolder.mkdirs();
+         }
     }
     
     public void saveData() {
@@ -235,6 +244,8 @@ public class Main extends JavaPlugin {
 					}
 				} else if (args[0].equalsIgnoreCase("adminPrecaution")) {
 					p.sendMessage(ColorLogging.getAdminPrecaution());
+				} else if (args[0].equalsIgnoreCase("wiki")) {
+					MerchantDescription.getDescription(p, args[1]);
 				} else {
 					p.sendMessage(ColorLogging.getHelpMessage());
 				}

@@ -17,6 +17,7 @@ import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
@@ -78,7 +79,6 @@ public class EvilLord extends AbstractEntityListener {
 						exist = true;
 						z.teleport(z.getWorld().getHighestBlockAt(z.getLocation()).getLocation().add(0, 2, 0));
 						z.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(10);
-						z.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.2);
 						z.setRemoveWhenFarAway(false);
 						setSkin(z, file, ChatColor.RED + "" + ChatColor.BOLD + "Evil Lord");
 						activateSkill(z);
@@ -139,6 +139,7 @@ public class EvilLord extends AbstractEntityListener {
 		drops.add(Currency.penny(1));
 		l.getWorld().dropItemNaturally(l, Currency.credit(2));
 		l.getWorld().dropItemNaturally(l, Currency.goldCoin(25));
+		l.getWorld().spawn(l, ExperienceOrb.class).setExperience(2000);
 		l.getWorld().playSound(l, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 13, 1);
 		new BukkitRunnable() {
 			int second = 0;
