@@ -43,7 +43,7 @@ public class MerchantConversation {
 				}
 				if (v.isSleeping()) return;
 				try {
-				speakDialogue(v, range, prefix, path);
+					speakDialogue(v, range, prefix, path);
 				} catch (IndexOutOfBoundsException e) {
 					Bukkit.getServer().broadcastMessage("Error: " + path);
 					e.printStackTrace();
@@ -112,9 +112,12 @@ public class MerchantConversation {
 	
 	//choose a random name from name.yml with given path
 	public static String chooseRandomName(String path) {
-		List<String> messages = main.getCustomNameConfig().getStringList(path);
+		List<String> messages = main.getCustomNameConfig().getStringList(path + ".names");
 		if (messages.size() == 0) return "";
-		return colored(messages.get(r.nextInt(messages.size())));
+		return colored(main.getCustomNameConfig().getString(path + ".format").replace
+				("<NAME>", 
+				messages.get(r.nextInt(messages.size()))
+				));
 	}
 	
 	//transform '&' into color codes
