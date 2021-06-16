@@ -1,2 +1,56 @@
 Lightseeker:
-    - "&3&l[&eSir Vincent&3]&r"
+  format: '<NAME>'
+  names:
+  - "&6&l[&e&lSir Vincent&6&l]&r"
+  - "&6&l[&e&lSir Alvus&6&l]&r"
+  - "&6&l[&e&lSir Armstrong&6&l]&r"
+  - "&6&l[&e&lSir Betz&6&l]&r"
+  - "&6&l[&e&lSir Charlemagne&6&l]&r"
+  - "&6&l[&e&lSir Caspian&6&l]&r"
+  - "&6&l[&e&lSir Cooney&6&l]&r"
+  - "&6&l[&e&lSir Dante&6&l]&r"
+  - "&6&l[&e&lSir Gabini&6&l]&r"
+  - "&6&l[&e&lSir Gerald&6&l]&r"
+  - "&6&l[&e&lSir Gaw Ain&6&l]&r"
+  - "&6&l[&e&lSir Julian&6&l]&r"
+  - "&6&l[&e&lSir Magnus&6&l]&r"
+  - "&6&l[&e&lSir Nicholas&6&l]&r"
+  - "&6&l[&e&lSir Olivier&6&l]&r"
+  - "&6&l[&e&lSir Roland&6&l]&r"
+  - "&6&l[&e&lSir Royster&6&l]&r"
+  - "&6&l[&e&lSir Ulric&6&l]&r"
+  - "&6&l[&e&lSir Wallace&6&l]&r"
+Viking_Archer:
+  format: '&7&l[&bVIKING&7&l] &e<NAME>'
+  names:
+  - 'Arne'
+  - 'Erik'
+  - 'Frode'
+  - 'Halfdan'
+  - 'Kåre'
+  - 'Leif'
+  - 'Rune'
+  - 'Svend'
+  - 'Troels'
+  - 'Trygve'
+  - 'Åge'
+Berserker:
+  format: "&7&l[&4VIKING&7&l] &c<NAME>"
+  names:
+  - 'Birger'
+  - 'Bjørn'
+  - 'Bo'
+  - 'Gorm'
+  - 'Harald'
+  - 'Knud'
+  - 'Njal'
+  - 'Roar'
+  - 'Sten'
+  - 'Skarde'
+  - 'Sune'
+  - 'Toke'
+  - 'Torsten'
+  - 'Ulf'
+  - 'Ødger'  
+
+
