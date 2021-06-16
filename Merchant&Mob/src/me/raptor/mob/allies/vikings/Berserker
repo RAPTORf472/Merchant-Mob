@@ -1,0 +1,149 @@
+package me.raptor.mob.allies.vikings;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Random;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
+import org.bukkit.Particle.DustOptions;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.Damageable;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Zombie;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobSpawnEvent;
+import me.raptor.main.ParticleUtils;
+import me.raptor.merchant.AbstractEntityListener;
+import me.raptor.merchant.MerchantConversation;
+
+public class Berserker extends AbstractEntityListener {
+	Plugin plugin;
+	private static NamespacedKey key;
+	HashMap<Integer, String> sounds = new HashMap<>();
+	//skin file
+	File file;
+	Random r = new Random();
+	public Berserker(Plugin plugin, String path) {
+		this.plugin = plugin;
+		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+		key = new NamespacedKey(plugin, "Berserker");
+		file = new File(path + "berserker.png");
+		}
+	
+	public static NamespacedKey getKey() {
+		return key;
+	}
+	
+	@EventHandler
+	public void onBerserkerSpawn(MythicMobSpawnEvent e) {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if (e.getEntity() instanceof Zombie) {
+					Zombie z = (Zombie) e.getEntity(); 
+					if (checkName(z, "Berserker")) {
+						setKey(z, "Berserker", key);
+						BerserkerEquipments(z);
+						//Give it a name, why not?
+						String name = MerchantConversation.chooseRandomName("Berserker");
+						z.setCustomName(name);
+						z.setCustomNameVisible(true);
+						MerchantConversation.activateSpeakingAbility(z, "Berserker", 15, 7, name + ": ");
+						z.teleport(z.getWorld().getHighestBlockAt(z.getLocation()).getLocation().add(0, 2, 0));
+						z.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.3);
+						setSkin(z, file, name);
+						
+					}
+				}
+			}
+		}.runTaskLater(plugin, 1);
+		
+	}
+	
+	@EventHandler
+	public void onBerserkerThunderRoar(EntityDamageByEntityEvent e) {
+		if (e.getEntity() instanceof Zombie && e.getDamager() instanceof LivingEntity) {
+			Zombie z = (Zombie) e.getEntity();
+			if (checkKey(z, "Berserker", key)) {
+				Roar(z, (LivingEntity) e.getDamager(), 18);
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onBerserkerSmash(EntityDamageByEntityEvent e) {
+		if (e.getDamager() instanceof Zombie && e.getEntity() instanceof LivingEntity) {
+			Zombie z = (Zombie) e.getDamager();
+			if (checkKey(z, "Berserker", key)) {
+				TheVikingSmash(z, (LivingEntity) e.getEntity(), 10);
+			}
+		}
+	}
+	
+	
+	public void Roar(Zombie z, LivingEntity d, int percent) {
+		if (!(r.nextInt(101) <= percent)) return;
+		z.getWorld().playSound(z.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 5, 1);
+		z.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*3, 1));
+		z.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20*3, 1));
+		z.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 20*3, 1));
+		z.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*3, 1));
+		z.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*3, 1));
+		if(d instanceof Damageable) {
+			((Damageable) d).damage(5, z);
+		}
+	}
+	
+	public void TheVikingSmash(Zombie z, LivingEntity d, int percent) {
+		if (!(r.nextInt(101) <= percent)) return;
+		z.getWorld().playSound(z.getLocation(), Sound.ENTITY_DRAGON_FIREBALL_EXPLODE, 4, 1);
+		z.setInvulnerable(true);
+		z.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*1, 200));
+		z.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20*3, 200));
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if(!z.isDead()) z.setInvulnerable(false);
+				if(z.getLocation().distance(d.getLocation()) <= 5) {
+					z.teleport(d);
+					if(d instanceof Damageable) {
+						((Damageable) d).damage(10, z);
+					}
+					ParticleUtils.createExpandingCircle(Particle.REDSTONE, d.getLocation(), 0, 0.25f, 2, 70, new DustOptions(Color.fromRGB(0, 255, 255), (float) 0.75));
+				} else {
+					z.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*1, 2));
+				}
+			}
+		}.runTaskLater(plugin, 20*1);
+	}
+	
+	public void BerserkerEquipments(Zombie z) {
+		z.setCanPickupItems(false);
+		if (r.nextInt(4) == 0) {
+			z.getEquipment().setItemInMainHand(new ItemStack(Material.IRON_AXE));	
+		} else if (r.nextInt(4) == 1) {
+			z.getEquipment().setItemInMainHand(new ItemStack(Material.GOLDEN_AXE));	
+		} else if (r.nextInt(4) == 2) {
+			z.getEquipment().setItemInMainHand(new ItemStack(Material.STONE_AXE));	
+		} else if (r.nextInt(4) == 3) {
+			z.getEquipment().setItemInMainHand(new ItemStack(Material.DIAMOND_AXE));	
+		}  else if (r.nextInt(4) == 4) {
+			z.getEquipment().setItemInMainHand(new ItemStack(Material.IRON_SWORD));	
+		} 
+		z.getEquipment().setHelmet(new ItemStack(Material.IRON_HELMET));
+	}
+	
+	
+}
